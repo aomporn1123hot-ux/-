@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   let pages = document.querySelectorAll(".page");
   let current = 0;
-  const progressIcons = ["🌱", "🌱🌿", "🌱🌿🌳", "🌱🌿🌳🌳", "🌱🌿🌳🌳🌳", "🌱🌿🌳🌳🌳🌳"];
+  const totalSteps = pages.length - 1; // ไม่รวมหน้าสุดท้าย (video)
   pages[current].classList.add("active");
 
   function showPage(i) {
@@ -12,8 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateProgress() {
-    let progress = Math.min(current, progressIcons.length - 1);
-    document.getElementById("progressIcon").textContent = progressIcons[progress];
+    let percent = (current / (totalSteps - 1)) * 100;
+    let seed = document.getElementById("progressSeed");
+    seed.style.left = percent + "%";
+
+    // เปลี่ยนอีโมจิต้นไม้ตามความก้าวหน้า
+    if (current === 0) seed.textContent = "🌱";
+    else if (current < totalSteps - 2) seed.textContent = "🌿";
+    else seed.textContent = "🌳";
   }
 
   document.querySelectorAll(".next").forEach(btn => {
