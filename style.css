@@ -2,14 +2,14 @@ body {
   font-family: sans-serif;
   background: #f9f9f9;
   padding: 20px;
-  font-size: 2em; /* ตัวหนังสือใหญ่ขึ้น 2 เท่า */
+  font-size: 2.5em; /* ใหญ่ขึ้นอีก */
 }
 
 .page {
   display: none;
 }
 
-.page.active {
+#surveyForm {
   display: block;
 }
 
@@ -17,20 +17,25 @@ body {
   display: flex;
   gap: 30px;
   margin: 20px 0;
+  flex-wrap: wrap;
 }
 
 .option {
   border: 0.5mm solid lightgreen;
-  padding: 20px 40px;
-  border-radius: 6px;
+  padding: 25px 50px;
+  border-radius: 8px;
   cursor: pointer;
   position: relative;
-  font-size: 1em;
+  text-align: center;
+}
+
+.option.wide {
+  min-width: 200px; /* กรอบยาวขึ้น */
 }
 
 .option.selected {
   border: 1mm solid limegreen;
-  box-shadow: 0 0 10px limegreen;
+  box-shadow: 0 0 12px limegreen;
 }
 
 .option.selected::after {
@@ -41,8 +46,18 @@ body {
   background: limegreen;
   color: white;
   border-radius: 50%;
-  font-size: 0.7em;
-  padding: 5px 8px;
+  font-size: 0.8em;
+  padding: 8px 10px;
+}
+
+input[type="number"], 
+input[type="text"] {
+  font-size: 1em;
+  padding: 20px;
+  width: 80%;
+  border: 0.5mm solid lightgreen;
+  border-radius: 6px;
+  margin: 10px 0 30px 0;
 }
 
 .hidden {
@@ -58,17 +73,17 @@ body {
 }
 
 .workimg {
-  width: 200px;
+  width: 300px;   /* รูปใหญ่ขึ้น */
   height: auto;
   border: 0.5mm solid lightgreen;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   margin: 10px;
 }
 
 .workimg.selected {
   border: 1mm solid limegreen;
-  box-shadow: 0 0 10px limegreen;
+  box-shadow: 0 0 12px limegreen;
   position: relative;
 }
 
@@ -81,30 +96,20 @@ body {
   color: white;
   border-radius: 50%;
   font-size: 1em;
-  padding: 5px 8px;
+  padding: 8px 10px;
 }
 
 .nav {
   margin-top: 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 button {
-  padding: 20px 40px;
+  padding: 25px 50px;
   border: none;
   cursor: pointer;
   font-size: 1em;
-}
-
-.next {
-  background: #4CAF50;
-  color: white;
-}
-
-.prev {
-  background: #2196F3;
-  color: white;
 }
 
 .submit {
@@ -116,4 +121,6 @@ button {
   background: #E91E63;
   color: white;
   width: 100%;
+  padding: 30px;
+  font-size: 1em;
 }
