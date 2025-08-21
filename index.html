@@ -7,19 +7,36 @@
 </head>
 <body>
   <div id="app">
-    <form id="surveyForm">
-      <!-- ข้อ 1 -->
+
+    <!-- Progress Bar -->
+    <div id="progressBar">
+      <span id="progressIcon">🌱</span>
+    </div>
+
+    <!-- Step 1: เพศ -->
+    <div class="page" id="page1">
       <h2>ข้อ 1: เพศ</h2>
       <div class="options">
         <div class="option wide" data-group="gender">ชาย</div>
         <div class="option wide" data-group="gender">หญิง</div>
       </div>
+      <div class="nav">
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
 
-      <!-- ข้อ 2 -->
+    <!-- Step 2: อายุ -->
+    <div class="page" id="page2">
       <h2>ข้อ 2: อายุ (ปี)</h2>
       <input type="number" id="age" placeholder="กรอกอายุ">
+      <div class="nav">
+        <button class="prev">ย้อนกลับ</button>
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
 
-      <!-- ข้อ 3 -->
+    <!-- Step 3: โรคประจำตัว -->
+    <div class="page" id="page3">
       <h2>ข้อ 3: ท่านมีโรคประจำตัวหรือไม่</h2>
       <div class="options">
         <div class="option wide" data-group="disease" data-value="ไม่มี">ไม่มี</div>
@@ -29,12 +46,34 @@
         <label>โปรดระบุ:</label>
         <input type="text" id="disease-text">
       </div>
+      <div class="nav">
+        <button class="prev">ย้อนกลับ</button>
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
 
-      <!-- ข้อ 5 -->
+    <!-- Step 4: ประสบการณ์ทำงาน -->
+    <div class="page" id="page4">
+      <h2>ข้อ 4: ประสบการณ์ทำงาน (ปี)</h2>
+      <input type="number" id="exp" placeholder="กรอกจำนวนปี">
+      <div class="nav">
+        <button class="prev">ย้อนกลับ</button>
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
+
+    <!-- Step 5: ชั่วโมงทำงาน -->
+    <div class="page" id="page5">
       <h2>ข้อ 5: ระยะเวลาการทำงานต่อวัน (ชั่วโมง)</h2>
       <input type="number" id="workhours" placeholder="กรอกจำนวนชั่วโมง">
+      <div class="nav">
+        <button class="prev">ย้อนกลับ</button>
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
 
-      <!-- ข้อ 6 -->
+    <!-- Step 6: ลักษณะงาน -->
+    <div class="page" id="page6">
       <h2>ข้อ 6: ลักษณะงานหลักที่ทำ</h2>
       <div class="options">
         <div class="option wide" data-group="worktype" data-value="ทำนา">ทำนา</div>
@@ -42,12 +81,11 @@
         <div class="option wide" data-group="worktype" data-value="ทำสวน">ทำสวน</div>
       </div>
       <div id="work-images"></div>
-
-      <!-- ปุ่มส่ง -->
       <div class="nav">
-        <button type="submit" class="submit">ส่ง</button>
+        <button class="prev">ย้อนกลับ</button>
+        <button class="submit">ส่ง</button>
       </div>
-    </form>
+    </div>
 
     <!-- Final Page -->
     <div class="page" id="pageFinal">
