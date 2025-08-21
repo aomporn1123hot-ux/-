@@ -2,14 +2,20 @@ body {
   font-family: sans-serif;
   background: #f9f9f9;
   padding: 20px;
-  font-size: 2.5em; /* ใหญ่ขึ้นอีก */
+  font-size: 2.5em;
+}
+
+#progressBar {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
 }
 
 .page {
   display: none;
 }
 
-#surveyForm {
+.page.active {
   display: block;
 }
 
@@ -17,7 +23,6 @@ body {
   display: flex;
   gap: 30px;
   margin: 20px 0;
-  flex-wrap: wrap;
 }
 
 .option {
@@ -30,7 +35,7 @@ body {
 }
 
 .option.wide {
-  min-width: 200px; /* กรอบยาวขึ้น */
+  min-width: 220px;
 }
 
 .option.selected {
@@ -69,11 +74,11 @@ input[type="text"] {
 }
 
 #work-images .options {
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* ให้อยู่บรรทัดเดียว */
 }
 
 .workimg {
-  width: 300px;   /* รูปใหญ่ขึ้น */
+  width: 250px;
   height: auto;
   border: 0.5mm solid lightgreen;
   border-radius: 8px;
@@ -102,7 +107,7 @@ input[type="text"] {
 .nav {
   margin-top: 30px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 button {
@@ -110,6 +115,16 @@ button {
   border: none;
   cursor: pointer;
   font-size: 1em;
+}
+
+.next {
+  background: #4CAF50;
+  color: white;
+}
+
+.prev {
+  background: #2196F3;
+  color: white;
 }
 
 .submit {
