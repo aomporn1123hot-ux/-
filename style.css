@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   background: #f9f9f9;
   padding: 20px;
+  font-size: 2em; /* ตัวหนังสือใหญ่ขึ้น 2 เท่า */
 }
 
 .page {
@@ -14,49 +15,86 @@ body {
 
 .options {
   display: flex;
-  gap: 15px;
-  margin: 15px 0;
+  gap: 30px;
+  margin: 20px 0;
 }
 
 .option {
   border: 0.5mm solid lightgreen;
-  padding: 10px 20px;
+  padding: 20px 40px;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
+  font-size: 1em;
 }
 
 .option.selected {
   border: 1mm solid limegreen;
-  box-shadow: 0 0 8px limegreen;
+  box-shadow: 0 0 10px limegreen;
 }
 
 .option.selected::after {
   content: "✔";
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -15px;
+  right: -15px;
   background: limegreen;
   color: white;
   border-radius: 50%;
-  font-size: 14px;
-  padding: 2px 5px;
+  font-size: 0.7em;
+  padding: 5px 8px;
 }
 
 .hidden {
   display: none;
 }
 
-.nav {
+#work-images {
   margin-top: 20px;
+}
+
+#work-images .options {
+  flex-wrap: wrap;
+}
+
+.workimg {
+  width: 200px;
+  height: auto;
+  border: 0.5mm solid lightgreen;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.workimg.selected {
+  border: 1mm solid limegreen;
+  box-shadow: 0 0 10px limegreen;
+  position: relative;
+}
+
+.workimg.selected::after {
+  content: "✔";
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: limegreen;
+  color: white;
+  border-radius: 50%;
+  font-size: 1em;
+  padding: 5px 8px;
+}
+
+.nav {
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
 }
 
 button {
-  padding: 10px 20px;
+  padding: 20px 40px;
   border: none;
   cursor: pointer;
+  font-size: 1em;
 }
 
 .next {
@@ -72,4 +110,10 @@ button {
 .submit {
   background: #FF5722;
   color: white;
+}
+
+#exitBtn {
+  background: #E91E63;
+  color: white;
+  width: 100%;
 }
