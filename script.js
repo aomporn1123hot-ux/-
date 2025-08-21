@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let container = document.getElementById("work-images");
         container.innerHTML = "";
         if (opt.dataset.value === "ทำนา") {
-          container.innerHTML = `<img src="1.png" class="workimg">`;
+          container.innerHTML = `<img src="1.png" class="workimg" style="pointer-events:none;">`;
         } else if (opt.dataset.value === "ทำไร่") {
           container.innerHTML = `
             <div class="options">
@@ -59,14 +59,22 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>`;
         }
 
-        // ผูก event เลือกรูป
+        // ผูก event เฉพาะงานที่ต้องเลือก
         document.querySelectorAll(".workimg").forEach(img => {
-          img.addEventListener("click", () => {
-            document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
-            img.classList.add("selected");
-          });
+          if (opt.dataset.value !== "ทำนา") {
+            img.addEventListener("click", () => {
+              document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
+              img.classList.add("selected");
+            });
+          }
         });
       }
     });
+  });
+
+  // ปุ่มออกจากโปรแกรม
+  document.getElementById("exitBtn").addEventListener("click", () => {
+    window.open("", "_self"); 
+    window.close();
   });
 });
