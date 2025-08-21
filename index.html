@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แบบสอบถาม</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Step 1: เพศ -->
+    <div class="page" id="page1">
+      <h2>ข้อ 1: เพศ</h2>
+      <div class="options">
+        <div class="option" data-group="gender">ชาย</div>
+        <div class="option" data-group="gender">หญิง</div>
+      </div>
+      <div class="nav">
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
+
+    <!-- Step 2: อายุ -->
+    <div class="page" id="page2">
+      <h2>ข้อ 2: อายุ (ปี)</h2>
+      <input type="number" id="age" placeholder="กรอกอายุ">
+      <div class="nav">
+        <button class="prev">ย้อนกลับ</button>
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
+
+    <!-- Step 3: โรคประจำตัว -->
+    <div class="page" id="page3">
+      <h2>ข้อ 3: ท่านมีโรคประจำตัวหรือไม่</h2>
+      <div class="options">
+        <div class="option" data-group="disease" data-value="ไม่มี">ไม่มี</div>
+        <div class="option" data-group="disease" data-value="มี">มี</div>
+      </div>
+      <div id="disease-detail" class="hidden">
+        <label>โปรดระบุ:</label>
+        <input type="text" id="disease-text">
+      </div>
+      <div class="nav">
+        <button class="prev">ย้อนกลับ</button>
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
+
+    <!-- Step 5: ชั่วโมงทำงาน -->
+    <div class="page" id="page4">
+      <h2>ข้อ 5: ระยะเวลาการทำงานต่อวัน (ชั่วโมง)</h2>
+      <input type="number" id="workhours" placeholder="กรอกจำนวนชั่วโมง">
+      <div class="nav">
+        <button class="prev">ย้อนกลับ</button>
+        <button class="next">ถัดไป</button>
+      </div>
+    </div>
+
+    <!-- Step 6: ลักษณะงาน -->
+    <div class="page" id="page5">
+      <h2>ข้อ 6: ลักษณะงานหลักที่ทำ</h2>
+      <div class="options">
+        <div class="option" data-group="worktype" data-value="ทำนา">ทำนา</div>
+        <div class="option" data-group="worktype" data-value="ทำไร่">ทำไร่</div>
+        <div class="option" data-group="worktype" data-value="ทำสวน">ทำสวน</div>
+      </div>
+      <div id="work-images"></div>
+      <div class="nav">
+        <button class="prev">ย้อนกลับ</button>
+        <button class="submit">ส่ง</button>
+      </div>
+    </div>
+
+    <!-- Final Page -->
+    <div class="page" id="page6">
+      <video src="7.mp4" controls autoplay style="width:100%; height:auto;"></video>
+      <div class="nav">
+        <button onclick="window.close()">กลับไปหน้าหลัก</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
