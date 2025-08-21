@@ -1,4 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
+  let pages = document.querySelectorAll(".page");
+  let current = 0;
+  const progressIcons = ["🌱", "🌱🌿", "🌱🌿🌳", "🌱🌿🌳🌳", "🌱🌿🌳🌳🌳", "🌱🌿🌳🌳🌳🌳"];
+  pages[current].classList.add("active");
+
+  function showPage(i) {
+    pages[current].classList.remove("active");
+    current = i;
+    pages[current].classList.add("active");
+    updateProgress();
+  }
+
+  function updateProgress() {
+    let progress = Math.min(current, progressIcons.length - 1);
+    document.getElementById("progressIcon").textContent = progressIcons[progress];
+  }
+
+  document.querySelectorAll(".next").forEach(btn => {
+    btn.addEventListener("click", () => showPage(current + 1));
+  });
+
+  document.querySelectorAll(".prev").forEach(btn => {
+    btn.addEventListener("click", () => showPage(current - 1));
+  });
+
+  document.querySelector(".submit").addEventListener("click", () => {
+    showPage(current + 1);
+  });
+
   // เลือก option
   document.querySelectorAll(".option").forEach(opt => {
     opt.addEventListener("click", () => {
@@ -7,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .forEach(o => o.classList.remove("selected"));
       opt.classList.add("selected");
 
-      // ถ้ามีโรค
       if (group === "disease") {
         if (opt.dataset.value === "มี") {
           document.getElementById("disease-detail").classList.remove("hidden");
@@ -16,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // ถ้าเลือกงาน
       if (group === "worktype") {
         let container = document.getElementById("work-images");
         container.innerHTML = "";
@@ -37,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>`;
         }
 
-        // ผูก event เฉพาะงานที่ต้องเลือก
         document.querySelectorAll(".workimg").forEach(img => {
           if (opt.dataset.value !== "ทำนา") {
             img.addEventListener("click", () => {
@@ -50,16 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ส่งฟอร์ม
-  document.getElementById("surveyForm").addEventListener("submit", e => {
-    e.preventDefault();
-    document.getElementById("surveyForm").style.display = "none";
-    document.getElementById("pageFinal").style.display = "block";
-  });
-
-  // ปุ่มออกจากโปรแกรม
+  // ปุ่มออก
   document.getElementById("exitBtn").addEventListener("click", () => {
     window.open("", "_self");
     window.close();
   });
+
+  updateProgress();
 });
