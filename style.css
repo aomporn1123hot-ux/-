@@ -1,0 +1,75 @@
+body {
+  font-family: sans-serif;
+  background: #f9f9f9;
+  padding: 20px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.options {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.option {
+  border: 0.5mm solid lightgreen;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.option.selected {
+  border: 1mm solid limegreen;
+  box-shadow: 0 0 8px limegreen;
+}
+
+.option.selected::after {
+  content: "✔";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: limegreen;
+  color: white;
+  border-radius: 50%;
+  font-size: 14px;
+  padding: 2px 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.nav {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.next {
+  background: #4CAF50;
+  color: white;
+}
+
+.prev {
+  background: #2196F3;
+  color: white;
+}
+
+.submit {
+  background: #FF5722;
+  color: white;
+}
