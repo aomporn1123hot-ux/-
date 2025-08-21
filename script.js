@@ -1,26 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let pages = document.querySelectorAll(".page");
-  let current = 0;
-  pages[current].classList.add("active");
-
-  function showPage(i) {
-    pages[current].classList.remove("active");
-    current = i;
-    pages[current].classList.add("active");
-  }
-
-  document.querySelectorAll(".next").forEach(btn => {
-    btn.addEventListener("click", () => showPage(current + 1));
-  });
-
-  document.querySelectorAll(".prev").forEach(btn => {
-    btn.addEventListener("click", () => showPage(current - 1));
-  });
-
-  document.querySelector(".submit").addEventListener("click", () => {
-    showPage(current + 1);
-  });
-
   // เลือก option
   document.querySelectorAll(".option").forEach(opt => {
     opt.addEventListener("click", () => {
@@ -72,9 +50,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // ส่งฟอร์ม
+  document.getElementById("surveyForm").addEventListener("submit", e => {
+    e.preventDefault();
+    document.getElementById("surveyForm").style.display = "none";
+    document.getElementById("pageFinal").style.display = "block";
+  });
+
   // ปุ่มออกจากโปรแกรม
   document.getElementById("exitBtn").addEventListener("click", () => {
-    window.open("", "_self"); 
+    window.open("", "_self");
     window.close();
   });
 });
