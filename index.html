@@ -8,22 +8,21 @@
 <body>
   <div id="app">
 
-   <!-- Progress Bar -->
-<div id="progressWrapper">
-  <div id="progressTrack">
-    <div id="progressFill"></div>
-    <div id="progressSeed">🌱</div>
-  </div>
-</div>
+    <!-- Progress Bar -->
+    <div id="progressBar">
+      <div id="progressFill"></div>
+      <div id="progressSeed">🌱</div>
+    </div>
+
     <!-- Step 1: เพศ -->
     <div class="page" id="page1">
       <h2>ข้อ 1: เพศ</h2>
       <div class="options">
-        <div class="option wide" data-group="gender">ชาย</div>
-        <div class="option wide" data-group="gender">หญิง</div>
+        <div class="option" data-group="gender" data-value="ชาย">ชาย</div>
+        <div class="option" data-group="gender" data-value="หญิง">หญิง</div>
       </div>
       <div class="nav">
-        <button class="next">ถัดไป</button>
+        <button class="next" disabled>ถัดไป</button>
       </div>
     </div>
 
@@ -33,7 +32,7 @@
       <input type="number" id="age" placeholder="กรอกอายุ">
       <div class="nav">
         <button class="prev">ย้อนกลับ</button>
-        <button class="next">ถัดไป</button>
+        <button class="next" disabled>ถัดไป</button>
       </div>
     </div>
 
@@ -41,8 +40,8 @@
     <div class="page" id="page3">
       <h2>ข้อ 3: ท่านมีโรคประจำตัวหรือไม่</h2>
       <div class="options">
-        <div class="option wide" data-group="disease" data-value="ไม่มี">ไม่มี</div>
-        <div class="option wide" data-group="disease" data-value="มี">มี</div>
+        <div class="option" data-group="disease" data-value="ไม่มี">ไม่มี</div>
+        <div class="option" data-group="disease" data-value="มี">มี</div>
       </div>
       <div id="disease-detail" class="hidden">
         <label>โปรดระบุ:</label>
@@ -50,7 +49,7 @@
       </div>
       <div class="nav">
         <button class="prev">ย้อนกลับ</button>
-        <button class="next">ถัดไป</button>
+        <button class="next" disabled>ถัดไป</button>
       </div>
     </div>
 
@@ -60,7 +59,7 @@
       <input type="number" id="exp" placeholder="กรอกจำนวนปี">
       <div class="nav">
         <button class="prev">ย้อนกลับ</button>
-        <button class="next">ถัดไป</button>
+        <button class="next" disabled>ถัดไป</button>
       </div>
     </div>
 
@@ -70,7 +69,7 @@
       <input type="number" id="workhours" placeholder="กรอกจำนวนชั่วโมง">
       <div class="nav">
         <button class="prev">ย้อนกลับ</button>
-        <button class="next">ถัดไป</button>
+        <button class="next" disabled>ถัดไป</button>
       </div>
     </div>
 
@@ -78,14 +77,14 @@
     <div class="page" id="page6">
       <h2>ข้อ 6: ลักษณะงานหลักที่ทำ</h2>
       <div class="options">
-        <div class="option wide" data-group="worktype" data-value="ทำนา">ทำนา</div>
-        <div class="option wide" data-group="worktype" data-value="ทำไร่">ทำไร่</div>
-        <div class="option wide" data-group="worktype" data-value="ทำสวน">ทำสวน</div>
+        <div class="option" data-group="worktype" data-value="ทำนา">ทำนา</div>
+        <div class="option" data-group="worktype" data-value="ทำไร่">ทำไร่</div>
+        <div class="option" data-group="worktype" data-value="ทำสวน">ทำสวน</div>
       </div>
       <div id="work-images"></div>
       <div class="nav">
         <button class="prev">ย้อนกลับ</button>
-        <button class="submit">ส่ง</button>
+        <button class="submit" disabled>ส่ง</button>
       </div>
     </div>
 
@@ -96,8 +95,8 @@
         <button id="exitBtn">กลับไปหน้าหลัก</button>
       </div>
     </div>
-  </div>
 
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
