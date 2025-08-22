@@ -12,15 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateProgress() {
-    let percent = (current / (totalSteps - 1)) * 100;
-    let seed = document.getElementById("progressSeed");
-    seed.style.left = percent + "%";
+  let percent = (current / (totalSteps - 1)) * 100;
+  let seed = document.getElementById("progressSeed");
+  let fill = document.getElementById("progressFill");
 
-    // เปลี่ยนอีโมจิต้นไม้ตามความก้าวหน้า
-    if (current === 0) seed.textContent = "🌱";
-    else if (current < totalSteps - 2) seed.textContent = "🌿";
-    else seed.textContent = "🌳";
-  }
+  seed.style.left = percent + "%";
+  fill.style.width = percent + "%";
+
+  // เปลี่ยนอีโมจิตามความก้าวหน้า
+  if (current === 0) seed.textContent = "🌱";
+  else if (current < totalSteps - 2) seed.textContent = "🌿";
+  else seed.textContent = "🌳";
+}
 
   document.querySelectorAll(".next").forEach(btn => {
     btn.addEventListener("click", () => showPage(current + 1));
