@@ -16,17 +16,16 @@ body {
   display: block;
 }
 
-/* Progress Bar */
 #progressBar {
   position: relative;
-  width: 90%;        /* เพิ่มจาก 100% → 90% (หรือปรับตามต้องการ) */
-  max-width: 1200px; /* จำกัดขนาดไม่ให้ใหญ่เกิน */
-  height: 30px;      /* สูงขึ้นจาก 20px เป็น 30px */
+  width: 98%;       /* แท่งแทบเต็มหน้าจอ */
+  max-width: none;  /* ไม่จำกัดขนาดสูงสุด */
+  height: 30px;     /* ความสูงตามต้องการ */
   background: #fff;
   border: 2px solid #2e7d32;
   border-radius: 15px;
   overflow: hidden;
-  margin: 20px auto; /* อยู่กึ่งกลาง */
+  margin: 20px auto;
 }
 
 #progressFill {
