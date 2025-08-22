@@ -64,31 +64,39 @@ input[type="text"] {
   flex-wrap: nowrap; /* ให้อยู่บรรทัดเดียว */
 }
 
+/* รูปงาน */
 .workimg {
-  width: 250px;
+  width: 200px;
   height: auto;
-  border: 0.5mm solid lightgreen;
-  border-radius: 8px;
-  cursor: pointer;
   margin: 10px;
+  cursor: pointer;
+  border: 2px solid #a5d6a7;
+  border-radius: 10px;
+  background: #fff;
+  transition: transform 0.3s, border 0.3s;
+  animation: popIn 0.5s ease;   /* ✅ เด้งน่ารักตอนปรากฏ */
+}
+
+.workimg:hover {
+  transform: scale(1.05);  /* ขยายเบา ๆ เวลาเอาเมาส์ชี้ */
 }
 
 .workimg.selected {
-  border: 1mm solid limegreen;
-  box-shadow: 0 0 12px limegreen;
-  position: relative;
+  border: 3px solid #00e676;
+  animation: bounce 0.6s;   /* ✅ เด้งอีกครั้งตอนเลือก */
 }
 
-.workimg.selected::after {
-  content: "✔";
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  background: limegreen;
-  color: white;
-  border-radius: 50%;
-  font-size: 1em;
-  padding: 8px 10px;
+/* keyframes */
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.15); }
+  70% { transform: scale(0.95); }
 }
 
 .nav {
