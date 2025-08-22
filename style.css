@@ -59,33 +59,36 @@ body {
 }
 
 .option {
-  border: 0.5mm solid lightgreen;
-  padding: 25px 50px;
-  border-radius: 8px;
+  border: 2px solid #a5d6a7;   /* เขียวอ่อน */
+  padding: 15px 40px;
+  border-radius: 10px;
+  margin: 10px;
   cursor: pointer;
+  display: inline-block;
   position: relative;
-  text-align: center;
-}
-
-.option.wide {
-  min-width: 220px;
+  font-size: 1em;
+  background: #ffffff;         /* ✅ พื้นหลังสีขาว */
 }
 
 .option.selected {
-  border: 1mm solid limegreen;
-  box-shadow: 0 0 12px limegreen;
+  border: 3px solid #00e676;   /* เขียวเรืองแสง */
+  background: #ffffff;         /* ✅ ยังคงพื้นหลังขาว */
 }
 
 .option.selected::after {
   content: "✔";
   position: absolute;
-  top: -15px;
-  right: -15px;
-  background: limegreen;
+  top: -10px;
+  right: -10px;
+  background: #00e676;
   color: white;
   border-radius: 50%;
-  font-size: 0.8em;
-  padding: 8px 10px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.6em;
 }
 
 input[type="number"], 
