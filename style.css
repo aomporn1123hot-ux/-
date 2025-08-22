@@ -39,7 +39,7 @@ body {
   top: 50%;
   left: 0%;
   transform: translate(-50%, -50%);
-  font-size: 2em;
+  font-size: 1.5em;   /* 🔽 จาก 2em → 1.5em */
   transition: left 0.6s ease;
 }
 
