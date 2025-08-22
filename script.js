@@ -92,36 +92,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      if (group === "worktype") {
-        let container = document.getElementById("work-images");
-        container.innerHTML = "";
-        if (opt.dataset.value === "ทำนา") {
-          container.innerHTML = `<img src="1.png" class="workimg" style="pointer-events:none;">`;
-        } else if (opt.dataset.value === "ทำไร่") {
-          container.innerHTML = `
-            <div class="options">
-              <img src="2.png" class="workimg">
-              <img src="3.png" class="workimg">
-              <img src="4.png" class="workimg">
-            </div>`;
-        } else if (opt.dataset.value === "ทำสวน") {
-          container.innerHTML = `
-            <div class="options">
-              <img src="5.png" class="workimg">
-              <img src="6.png" class="workimg">
-            </div>`;
-        }
+     if (group === "worktype") {
+  let container = document.getElementById("work-images");
+  container.innerHTML = "";
 
-        document.querySelectorAll(".workimg").forEach(img => {
-          if (opt.dataset.value !== "ทำนา") {
-            img.addEventListener("click", () => {
-              document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
-              img.classList.add("selected");
-              validatePage();
-            });
-          }
-        });
-      }
+  if (opt.dataset.value === "ทำนา") {
+    container.innerHTML = `<img src="1.png" class="workimg" style="pointer-events:none;">`;
+  } else if (opt.dataset.value === "ทำไร่") {
+    container.innerHTML = `
+      <div class="options">
+        <img src="2.png" class="workimg">
+        <img src="3.png" class="workimg">
+        <img src="4.png" class="workimg">
+      </div>`;
+  } else if (opt.dataset.value === "ทำสวน") {
+    container.innerHTML = `
+      <div class="options">
+        <img src="5.png" class="workimg">
+        <img src="6.png" class="workimg">
+      </div>`;
+  }
+
+  // รีเซ็ตแอนิเมชันให้รูปใหม่เด้งทุกครั้ง
+  document.querySelectorAll(".workimg").forEach(img => {
+    img.style.animation = "none";
+    img.offsetHeight; // trigger reflow
+    img.style.animation = null;
+
+    if (opt.dataset.value !== "ทำนา") {
+      img.addEventListener("click", () => {
+        document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
+        img.classList.add("selected");
+        validatePage();
+      });
+    }
+  });
+}
 
       validatePage();
     });
