@@ -1,12 +1,22 @@
 body {
   font-family: sans-serif;
-  background: url("8.jpg") no-repeat center center fixed; 
-  background-size: cover;   /* ✅ ขยายเต็มหน้าจอ */
+  background: url("8.jpg") no-repeat center center fixed;
+  background-size: cover;
   padding: 20px;
   font-size: 2.5em;
   margin: 0;
   min-height: 100vh;
 }
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Progress Bar */
 #progressBar {
   position: relative;
   width: 100%;
@@ -30,12 +40,13 @@ body {
   top: 50%;
   left: 0%;
   transform: translate(-50%, -50%);
-  font-size: 1.2em;   /* 🔽 จาก 1.5em → 1.2em */
+  font-size: 1.2em;
   transition: left 0.6s ease;
 }
+
 /* กรอบตัวเลือก */
 .option {
-  border: 2px solid #a5d6a7;   /* เขียวอ่อน */
+  border: 2px solid #a5d6a7;
   padding: 15px 40px;
   border-radius: 10px;
   margin: 10px;
@@ -43,12 +54,12 @@ body {
   display: inline-block;
   position: relative;
   font-size: 1em;
-  background: #ffffff;         /* ✅ พื้นหลังขาว */
+  background: #ffffff;
 }
 
 .option.selected {
-  border: 3px solid #00e676;   /* เขียวเรืองแสง */
-  background: #ffffff;         /* ✅ ยังคงพื้นหลังขาว */
+  border: 3px solid #00e676;
+  background: #ffffff;
 }
 
 .option.selected::after {
@@ -67,7 +78,7 @@ body {
   font-size: 0.6em;
 }
 
-input[type="number"], 
+input[type="number"],
 input[type="text"] {
   font-size: 1em;
   padding: 20px;
@@ -83,10 +94,8 @@ input[type="text"] {
 
 #work-images {
   margin-top: 20px;
-}
-
-#work-images .options {
-  flex-wrap: nowrap; /* ให้อยู่บรรทัดเดียว */
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 /* รูปงาน */
@@ -99,19 +108,19 @@ input[type="text"] {
   border-radius: 10px;
   background: #fff;
   transition: transform 0.3s, border 0.3s;
-  animation: popIn 0.5s ease;   /* ✅ เด้งน่ารักตอนปรากฏ */
+  animation: popIn 0.5s ease;
 }
 
 .workimg:hover {
-  transform: scale(1.05);  /* ขยายเบา ๆ เวลาเอาเมาส์ชี้ */
+  transform: scale(1.05);
 }
 
 .workimg.selected {
   border: 3px solid #00e676;
-  animation: bounce 0.6s;   /* ✅ เด้งอีกครั้งตอนเลือก */
+  animation: bounce 0.6s;
 }
 
-/* keyframes */
+/* Keyframes */
 @keyframes popIn {
   0% { transform: scale(0.5); opacity: 0; }
   60% { transform: scale(1.1); opacity: 1; }
@@ -124,6 +133,7 @@ input[type="text"] {
   70% { transform: scale(0.95); }
 }
 
+/* Navigation Buttons */
 .nav {
   margin-top: 30px;
   display: flex;
