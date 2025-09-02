@@ -64,39 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
     nextBtn.disabled = !valid;
   }
 
-  // ✅ เก็บข้อมูลคำตอบทั้งหมด
-  function collectData() {
-    let data = {
-      gender: document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "",
-      age: document.getElementById("age").value || "",
-      disease: document.querySelector(".option[data-group='disease'].selected")?.dataset.value || "",
-      diseaseDetail: document.getElementById("disease-text").value || "",
-      experience: document.getElementById("exp").value || "",
-      workhours: document.getElementById("workhours").value || "",
-      worktype: document.querySelector(".option[data-group='worktype'].selected")?.dataset.value || "",
-      workimg: document.querySelector(".workimg.selected")?.getAttribute("src") || ""
-    };
-    return data;
-  }
-
-  // ✅ ส่งไป Firebase
-  function sendToFirebase(data) {
-    fetch("https://fera-2215e-default-rtdb.asia-southeast1.firebasedatabase.app/responses.json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(result => {
-      console.log("บันทึกข้อมูลเรียบร้อย:", result);
-    })
-    .catch(err => {
-      console.error("เกิดข้อผิดพลาด:", err);
-    });
-  }
-
   // ตรวจ input พิมพ์
   document.querySelectorAll("input").forEach(inp => {
     inp.addEventListener("input", validatePage);
@@ -146,27 +113,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".next").forEach(btn => btn.addEventListener("click", () => showPage(current + 1)));
   document.querySelectorAll(".prev").forEach(btn => btn.addEventListener("click", () => showPage(current - 1)));
+  document.querySelector(".submit").addEventListener("click", () => showPage(current + 1));
+  document.getElementById("exitBtn").addEventListener("click", () => { window.open("", "_self"); window.close(); });
 
-  document.querySelector(".submit").addEventListener("click", () => {
-  let data = collectData();
-  data.timestamp = new Date().toISOString(); // ✅ เพิ่มเวลา
-
-  fetch("https://fera-2215e-default-rtdb.asia-southeast1.firebasedatabase.app/responses.json", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => {
-    console.log("Response status:", res.status);
-    return res.json();
-  })
-  .then(result => {
-    console.log("บันทึกข้อมูลเรียบร้อย:", result);
-    showPage(current + 1);  // ไปหน้าสุดท้าย
-  })
-  .catch(err => {
-    console.error("เกิดข้อผิดพลาด:", err);
-  });
+  updateProgress();
+  validatePage();
 });
