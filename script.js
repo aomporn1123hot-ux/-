@@ -148,16 +148,25 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".prev").forEach(btn => btn.addEventListener("click", () => showPage(current - 1)));
 
   document.querySelector(".submit").addEventListener("click", () => {
-    let data = collectData();
-    sendToFirebase(data);   // ✅ บันทึกไป Firebase
+  let data = collectData();
+  data.timestamp = new Date().toISOString(); // ✅ เพิ่มเวลา
+
+  fetch("https://fera-2215e-default-rtdb.asia-southeast1.firebasedatabase.app/responses.json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => {
+    console.log("Response status:", res.status);
+    return res.json();
+  })
+  .then(result => {
+    console.log("บันทึกข้อมูลเรียบร้อย:", result);
     showPage(current + 1);  // ไปหน้าสุดท้าย
+  })
+  .catch(err => {
+    console.error("เกิดข้อผิดพลาด:", err);
   });
-
-  document.getElementById("exitBtn").addEventListener("click", () => { 
-    window.open("", "_self"); 
-    window.close(); 
-  });
-
-  updateProgress();
-  validatePage();
 });
