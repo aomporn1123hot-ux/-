@@ -34,25 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let valid = false;
     switch (current) {
-      case 0: // เพศ
+      case 0:
         valid = !!document.querySelector(".option[data-group='gender'].selected");
         break;
-      case 1: // อายุ
+      case 1:
         valid = !!pages[current].querySelector("input").value;
         break;
-      case 2: // โรคประจำตัว
+      case 2:
         const diseaseOpt = document.querySelector(".option[data-group='disease'].selected");
         if (diseaseOpt) {
           valid = diseaseOpt.dataset.value === "มี" ? !!document.getElementById("disease-text").value : true;
         }
         break;
-      case 3: // ประสบการณ์
+      case 3:
         valid = !!pages[current].querySelector("input").value;
         break;
-      case 4: // ชั่วโมงทำงาน
+      case 4:
         valid = !!pages[current].querySelector("input").value;
         break;
-      case 5: // ลักษณะงาน
+      case 5:
         const workOpt = document.querySelector(".option[data-group='worktype'].selected");
         if (workOpt) {
           if (workOpt.dataset.value === "ทำนา") valid = true;
@@ -65,26 +65,20 @@ document.addEventListener("DOMContentLoaded", () => {
     nextBtn.disabled = !valid;
   }
 
-  // ตรวจ input พิมพ์
   document.querySelectorAll("input").forEach(inp => inp.addEventListener("input", validatePage));
-
-  // ตรวจ option เลือก
   document.querySelectorAll(".option").forEach(opt => {
     opt.addEventListener("click", () => {
       const group = opt.dataset.group;
       document.querySelectorAll(`.option[data-group="${group}"]`).forEach(o => o.classList.remove("selected"));
       opt.classList.add("selected");
 
-      // โรคประจำตัว
       if (group === "disease") {
         document.getElementById("disease-detail").classList.toggle("hidden", opt.dataset.value !== "มี");
       }
 
-      // ลักษณะงาน
       if (group === "worktype") {
         const container = document.getElementById("work-images");
         container.innerHTML = "";
-
         if (opt.dataset.value === "ทำนา") {
           container.innerHTML = `<img src="1.png" class="workimg" style="pointer-events:none;">`;
         } else if (opt.dataset.value === "ทำไร่") {
@@ -108,14 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ปุ่มนำทาง
   document.querySelectorAll(".next").forEach(btn => btn.addEventListener("click", () => showPage(current + 1)));
   document.querySelectorAll(".prev").forEach(btn => btn.addEventListener("click", () => showPage(current - 1)));
 
-  // ปุ่มส่ง → บันทึก Firebase
   document.querySelector(".submit").addEventListener("click", () => {
-    console.log("ปุ่มส่งถูกกดแล้ว ✅");
-
     const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
     const age = document.getElementById("age").value || "";
     const diseaseOpt = document.querySelector(".option[data-group='disease'].selected");
@@ -141,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const newRef = push(ref(db, "responses"));
     set(newRef, data)
       .then(() => {
-        console.log("บันทึกสำเร็จ ✅", data);
         showPage(current + 1);
       })
       .catch(err => {
@@ -150,13 +139,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  // ปุ่มออก
-  const exitBtn = document.getElementById("exitBtn");
-  if (exitBtn) {
-    exitBtn.addEventListener("click", () => {
-      window.open("", "_self");
-      window.close();
+  const feraBtn = document.getElementById("feraBtn");
+  if (feraBtn) {
+    feraBtn.addEventListener("click", () => {
+      window.open("https://aomporn1123hot-ux.github.io/FERA-for-Farmer/", "_blank");
     });
+    feraBtn.addEventListener("mouseover", () => feraBtn.style.transform = "scale(1.05)");
+    feraBtn.addEventListener("mouseout", () => feraBtn.style.transform = "scale(1)");
   }
 
   updateProgress();
