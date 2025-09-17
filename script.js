@@ -1,7 +1,10 @@
+// script.js
+import { db, ref, set, push } from "./firebase.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   let pages = document.querySelectorAll(".page");
   let current = 0;
-  const totalSteps = pages.length - 1; 
+  const totalSteps = pages.length - 1;
   pages[current].classList.add("active");
 
   function showPage(i) {
@@ -95,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelectorAll(".workimg").forEach(img => {
           img.style.animation = "none";
-          img.offsetHeight; // trigger reflow
+          img.offsetHeight;
           img.style.animation = null;
           if (opt.dataset.value !== "ทำนา") {
             img.addEventListener("click", () => {
@@ -111,10 +114,50 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // ปุ่มนำทาง
   document.querySelectorAll(".next").forEach(btn => btn.addEventListener("click", () => showPage(current + 1)));
   document.querySelectorAll(".prev").forEach(btn => btn.addEventListener("click", () => showPage(current - 1)));
-  document.querySelector(".submit").addEventListener("click", () => showPage(current + 1));
-  document.getElementById("exitBtn").addEventListener("click", () => { window.open("", "_self"); window.close(); });
+
+  // ปุ่มส่ง → บันทึก Firebase
+  document.querySelector(".submit").addEventListener("click", () => {
+    const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
+    const age = document.getElementById("age").value || "";
+    const diseaseOpt = document.querySelector(".option[data-group='disease'].selected");
+    const disease = diseaseOpt ? diseaseOpt.dataset.value : "";
+    const diseaseText = disease === "มี" ? document.getElementById("disease-text").value : "";
+    const exp = document.getElementById("exp").value || "";
+    const workhours = document.getElementById("workhours").value || "";
+    const worktype = document.querySelector(".option[data-group='worktype'].selected")?.dataset.value || "";
+    const workimg = document.querySelector(".workimg.selected")?.src || "";
+
+    const data = {
+      gender,
+      age,
+      disease,
+      diseaseText,
+      exp,
+      workhours,
+      worktype,
+      workimg,
+      timestamp: new Date().toISOString()
+    };
+
+    const newRef = push(ref(db, "responses"));
+    set(newRef, data)
+      .then(() => {
+        console.log("บันทึกสำเร็จ", data);
+        showPage(current + 1);
+      })
+      .catch(err => {
+        console.error("เกิดข้อผิดพลาด", err);
+        alert("บันทึกข้อมูลไม่สำเร็จ");
+      });
+  });
+
+  document.getElementById("exitBtn").addEventListener("click", () => {
+    window.open("", "_self");
+    window.close();
+  });
 
   updateProgress();
   validatePage();
