@@ -1,5 +1,5 @@
 // script.js
-import { db, ref, set, push } from "./firebase.js";
+import { oldDB, newDB, ref, set, push } from "./firebase.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const pages = document.querySelectorAll(".page");
@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalSteps = pages.length - 1;
   pages[current].classList.add("active");
 
+  // --- แสดงหน้าที่เลือก ---
   function showPage(i) {
     pages[current].classList.remove("active");
     current = i;
@@ -15,19 +16,19 @@ document.addEventListener("DOMContentLoaded", () => {
     validatePage();
   }
 
+  // --- Progress Bar ---
   function updateProgress() {
     const percent = (current / (totalSteps - 1)) * 100;
     const seed = document.getElementById("progressSeed");
     const fill = document.getElementById("progressFill");
-
     seed.style.left = percent + "%";
     fill.style.width = percent + "%";
-
     if (current === 0) seed.textContent = "🌱";
     else if (current < totalSteps - 2) seed.textContent = "🌿";
     else seed.textContent = "🌳";
   }
 
+  // --- ตรวจสอบข้อมูลในแต่ละหน้า ---
   function validatePage() {
     const nextBtn = pages[current].querySelector(".next, .submit");
     if (!nextBtn) return;
@@ -55,8 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       case 5:
         const workOpt = document.querySelector(".option[data-group='worktype'].selected");
         if (workOpt) {
-          if (workOpt.dataset.value === "ทำนา") valid = true;
-          else valid = !!document.querySelector(".workimg.selected");
+          valid = workOpt.dataset.value === "ทำนา" ? true : !!document.querySelector(".workimg.selected");
         }
         break;
       default:
@@ -65,17 +65,21 @@ document.addEventListener("DOMContentLoaded", () => {
     nextBtn.disabled = !valid;
   }
 
+  // --- Event listeners ---
   document.querySelectorAll("input").forEach(inp => inp.addEventListener("input", validatePage));
+  
   document.querySelectorAll(".option").forEach(opt => {
     opt.addEventListener("click", () => {
       const group = opt.dataset.group;
       document.querySelectorAll(`.option[data-group="${group}"]`).forEach(o => o.classList.remove("selected"));
       opt.classList.add("selected");
 
+      // แสดง input กรณีเลือก "มี" โรคประจำตัว
       if (group === "disease") {
         document.getElementById("disease-detail").classList.toggle("hidden", opt.dataset.value !== "มี");
       }
 
+      // แสดงภาพตามลักษณะงาน
       if (group === "worktype") {
         const container = document.getElementById("work-images");
         container.innerHTML = "";
@@ -105,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".next").forEach(btn => btn.addEventListener("click", () => showPage(current + 1)));
   document.querySelectorAll(".prev").forEach(btn => btn.addEventListener("click", () => showPage(current - 1)));
 
+  // --- Submit form ---
   document.querySelector(".submit").addEventListener("click", () => {
     const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
     const age = document.getElementById("age").value || "";
@@ -116,29 +121,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const worktype = document.querySelector(".option[data-group='worktype'].selected")?.dataset.value || "";
     const workimg = document.querySelector(".workimg.selected")?.src || "";
 
-    const data = {
-      gender,
-      age,
-      disease,
-      diseaseText,
-      exp,
-      workhours,
-      worktype,
-      workimg,
-      timestamp: new Date().toISOString()
-    };
+    const data = { gender, age, disease, diseaseText, exp, workhours, worktype, workimg, timestamp: new Date().toISOString() };
 
-    const newRef = push(ref(db, "responses"));
+    // ส่งไปโปรเจกต์เก่า
+    const oldRef = push(ref(oldDB, "responses"));
+    set(oldRef, data).catch(err => console.error("Error oldDB ❌", err));
+
+    // ส่งไปโปรเจกต์ใหม่
+    const newRef = push(ref(newDB, "responses"));
     set(newRef, data)
-      .then(() => {
-        showPage(current + 1);
-      })
+      .then(() => showPage(current + 1))
       .catch(err => {
-        console.error("เกิดข้อผิดพลาด ❌", err);
+        console.error("Error newDB ❌", err);
         alert("บันทึกข้อมูลไม่สำเร็จ");
       });
   });
 
+  // --- FERA Button ---
   const feraBtn = document.getElementById("feraBtn");
   if (feraBtn) {
     feraBtn.addEventListener("click", () => {
