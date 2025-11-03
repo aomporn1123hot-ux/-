@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
-// 🔹 โปรเจกต์เก่า (ข้อมูลเดิมจะยังอยู่)
+// 🔹 โปรเจกต์เก่า
 const firebaseConfigOld = {
   apiKey: "AIzaSyDf0D2GLLDHoAVX4zq-tLuVocSmsrFhs38",
   authDomain: "fera-2215e.firebaseapp.com",
@@ -12,7 +12,7 @@ const firebaseConfigOld = {
   appId: "1:810225127285:web:fa87166d4e3e4770670d3c"
 };
 
-// 🔹 โปรเจกต์ใหม่ (จะเริ่มเก็บข้อมูลเพิ่มโดยไม่กระทบของเก่า)
+// 🔹 โปรเจกต์ใหม่
 const firebaseConfigNew = {
   apiKey: "AIzaSyAy88t3sZ_OEoQP0jRxVYKOLG1gucvRGsg",
   authDomain: "fera-ergonomics.firebaseapp.com",
