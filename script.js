@@ -44,10 +44,35 @@ document.querySelectorAll(".option").forEach(option => {
       .forEach(opt => opt.classList.remove("selected"));
     option.classList.add("selected");
 
+    // กรณีโรคประจำตัว — แสดงช่องกรอกเพิ่มเติม
+    if (group === "disease") {
+      const detail = document.getElementById("disease-detail");
+      if (option.dataset.value === "มี") {
+        detail.classList.remove("hidden");
+      } else {
+        detail.classList.add("hidden");
+      }
+    }
+
     // เปิดปุ่มถัดไป
     const nextBtn = option.closest(".page").querySelector(".next");
     if (nextBtn) nextBtn.disabled = false;
+
+    // เปิดปุ่มส่งกรณีเป็นหน้าสุดท้าย
+    const submitBtn = option.closest(".page").querySelector(".submit");
+    if (submitBtn) submitBtn.disabled = false;
   });
+});
+
+// ✅ ตรวจอินพุตตัวเลข: เปิดปุ่มถัดไปเมื่อกรอกครบ
+["age", "exp", "workhours"].forEach(id => {
+  const input = document.getElementById(id);
+  if (input) {
+    input.addEventListener("input", () => {
+      const nextBtn = input.closest(".page").querySelector(".next");
+      nextBtn.disabled = input.value.trim() === "";
+    });
+  }
 });
 
 // ✅ บันทึกข้อมูลเมื่อกดส่ง
@@ -77,9 +102,9 @@ document.querySelector(".submit").addEventListener("click", () => {
   // ✅ ส่งข้อมูลไป Firebase ทั้งสองโปรเจกต์ (โดยไม่กระทบข้อมูลเดิม)
   saveToBothProjects(data);
 
-  // ไปยังหน้าถัดไป (หน้าสรุปหรือหน้าสุดท้าย)
-  if (current < pages.length - 1) showPage(current + 1);
+  // ไปยังหน้าสุดท้าย
+  showPage(current + 1);
 });
 
-// ✅ ตั้งค่าหน้าแรกให้แสดง
+// ✅ หน้าแรกเริ่มต้น
 showPage(0);
