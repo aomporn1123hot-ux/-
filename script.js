@@ -1,32 +1,5 @@
 // script.js
-document.querySelector(".submit").addEventListener("click", () => {
-  const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
-  const age = document.getElementById("age").value || "";
-  const diseaseOpt = document.querySelector(".option[data-group='disease'].selected");
-  const disease = diseaseOpt ? diseaseOpt.dataset.value : "";
-  const diseaseText = disease === "มี" ? document.getElementById("disease-text").value : "";
-  const exp = document.getElementById("exp").value || "";
-  const workhours = document.getElementById("workhours").value || "";
-  const worktype = document.querySelector(".option[data-group='worktype'].selected")?.dataset.value || "";
-  const workimg = document.querySelector(".workimg.selected")?.src || "";
-
-  const data = {
-    gender,
-    age,
-    disease,
-    diseaseText,
-    exp,
-    workhours,
-    worktype,
-    workimg,
-    timestamp: new Date().toISOString()
-  };
-
-  // ✅ บันทึกไปทั้งสองโปรเจกต์
-  saveToBothProjects(data);
-
-  showPage(current + 1);
-});
+import { db, ref, set, push, saveToBothProjects } from "./firebase.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const pages = document.querySelectorAll(".page");
@@ -132,28 +105,34 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".next").forEach(btn => btn.addEventListener("click", () => showPage(current + 1)));
   document.querySelectorAll(".prev").forEach(btn => btn.addEventListener("click", () => showPage(current - 1)));
 
-  document.querySelector(".submit").addEventListener("click", () => {
-    const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
-    const age = document.getElementById("age").value || "";
-    const diseaseOpt = document.querySelector(".option[data-group='disease'].selected");
-    const disease = diseaseOpt ? diseaseOpt.dataset.value : "";
-    const diseaseText = disease === "มี" ? document.getElementById("disease-text").value : "";
-    const exp = document.getElementById("exp").value || "";
-    const workhours = document.getElementById("workhours").value || "";
-    const worktype = document.querySelector(".option[data-group='worktype'].selected")?.dataset.value || "";
-    const workimg = document.querySelector(".workimg.selected")?.src || "";
+ document.querySelector(".submit").addEventListener("click", () => {
+  const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
+  const age = document.getElementById("age").value || "";
+  const diseaseOpt = document.querySelector(".option[data-group='disease'].selected");
+  const disease = diseaseOpt ? diseaseOpt.dataset.value : "";
+  const diseaseText = disease === "มี" ? document.getElementById("disease-text").value : "";
+  const exp = document.getElementById("exp").value || "";
+  const workhours = document.getElementById("workhours").value || "";
+  const worktype = document.querySelector(".option[data-group='worktype'].selected")?.dataset.value || "";
+  const workimg = document.querySelector(".workimg.selected")?.src || "";
 
-    const data = {
-      gender,
-      age,
-      disease,
-      diseaseText,
-      exp,
-      workhours,
-      worktype,
-      workimg,
-      timestamp: new Date().toISOString()
-    };
+  const data = {
+    gender,
+    age,
+    disease,
+    diseaseText,
+    exp,
+    workhours,
+    worktype,
+    workimg,
+    timestamp: new Date().toISOString()
+  };
+
+  // ✅ ส่งข้อมูลไป Firebase ทั้งสองโปรเจกต์
+  saveToBothProjects(data);
+
+  showPage(current + 1);
+});
 
     const newRef = push(ref(db, "responses"));
     set(newRef, data)
