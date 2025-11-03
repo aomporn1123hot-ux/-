@@ -1,8 +1,7 @@
-// firebase.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
-/* -------------------------- โปรเจกต์เก่า -------------------------- */
+// 🔹 โปรเจกต์เก่า (ข้อมูลเดิมจะยังอยู่)
 const firebaseConfigOld = {
   apiKey: "AIzaSyDf0D2GLLDHoAVX4zq-tLuVocSmsrFhs38",
   authDomain: "fera-2215e.firebaseapp.com",
@@ -13,7 +12,7 @@ const firebaseConfigOld = {
   appId: "1:810225127285:web:fa87166d4e3e4770670d3c"
 };
 
-/* -------------------------- โปรเจกต์ใหม่ -------------------------- */
+// 🔹 โปรเจกต์ใหม่ (จะเริ่มเก็บข้อมูลเพิ่มโดยไม่กระทบของเก่า)
 const firebaseConfigNew = {
   apiKey: "AIzaSyAy88t3sZ_OEoQP0jRxVYKOLG1gucvRGsg",
   authDomain: "fera-ergonomics.firebaseapp.com",
@@ -25,30 +24,25 @@ const firebaseConfigNew = {
   measurementId: "G-2T11CCPNY7"
 };
 
-/* ---------------------- Initialize ทั้งสองโปรเจกต์ ---------------------- */
-const appOld = initializeApp(firebaseConfigOld, "oldApp");
-const appNew = initializeApp(firebaseConfigNew, "newApp");
+// ✅ เชื่อมต่อทั้งสองโปรเจกต์
+const appOld = initializeApp(firebaseConfigOld, "oldProject");
+const appNew = initializeApp(firebaseConfigNew, "newProject");
 
-/* ---------------------- เชื่อมฐานข้อมูลทั้งคู่ ---------------------- */
+// ✅ ดึง Database ของแต่ละโปรเจกต์
 const dbOld = getDatabase(appOld);
 const dbNew = getDatabase(appNew);
 
-/* ---------------------- ฟังก์ชันบันทึกข้อมูลพร้อมกัน ---------------------- */
+// ✅ ฟังก์ชันบันทึกข้อมูลไปทั้งสองโปรเจกต์
 function saveToBothProjects(data) {
   try {
-    // บันทึกไปโปรเจกต์เก่า
     const newRefOld = push(ref(dbOld, "responses"));
-    set(newRefOld, data);
-
-    // บันทึกไปโปรเจกต์ใหม่
     const newRefNew = push(ref(dbNew, "responses"));
+    set(newRefOld, data);
     set(newRefNew, data);
-
-    console.log("✅ ส่งข้อมูลสำเร็จไปทั้งสองโปรเจกต์");
+    console.log("✅ ข้อมูลถูกส่งไปทั้งสองโปรเจกต์แล้ว");
   } catch (error) {
     console.error("❌ เกิดข้อผิดพลาดในการส่งข้อมูล:", error);
   }
 }
 
-/* ---------------------- ส่งออกให้ script.js ใช้ ---------------------- */
-export { dbOld as db, ref, set, push, saveToBothProjects };
+export { ref, set, push, saveToBothProjects };
