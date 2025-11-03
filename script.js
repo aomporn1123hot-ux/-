@@ -1,5 +1,32 @@
 // script.js
-import { db, ref, set, push } from "./firebase.js";
+document.querySelector(".submit").addEventListener("click", () => {
+  const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
+  const age = document.getElementById("age").value || "";
+  const diseaseOpt = document.querySelector(".option[data-group='disease'].selected");
+  const disease = diseaseOpt ? diseaseOpt.dataset.value : "";
+  const diseaseText = disease === "มี" ? document.getElementById("disease-text").value : "";
+  const exp = document.getElementById("exp").value || "";
+  const workhours = document.getElementById("workhours").value || "";
+  const worktype = document.querySelector(".option[data-group='worktype'].selected")?.dataset.value || "";
+  const workimg = document.querySelector(".workimg.selected")?.src || "";
+
+  const data = {
+    gender,
+    age,
+    disease,
+    diseaseText,
+    exp,
+    workhours,
+    worktype,
+    workimg,
+    timestamp: new Date().toISOString()
+  };
+
+  // ✅ บันทึกไปทั้งสองโปรเจกต์
+  saveToBothProjects(data);
+
+  showPage(current + 1);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const pages = document.querySelectorAll(".page");
