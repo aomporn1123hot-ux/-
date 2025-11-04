@@ -61,12 +61,12 @@ document.querySelectorAll(".option").forEach(option => {
       const container = document.getElementById("work-images");
       container.innerHTML = ""; // เคลียร์ภาพเก่า
 
-      // ✅ ใช้ path แบบแน่นอน ./images/
-      const workImages = {
-        "ทำนา": ["./images/1.png"],
-        "ทำไร่": ["./images/2.png", "./images/3.png", "./images/4.png"],
-        "ทำสวน": ["./images/5.png", "./images/6.png"]
-      };
+      // ✅ ใช้ path ตรงจาก root (ไม่มีโฟลเดอร์ images)
+const workImages = {
+  "ทำนา": ["1.png"],
+  "ทำไร่": ["2.png", "3.png", "4.png"],
+  "ทำสวน": ["5.png", "6.png"]
+};
 
       if (workImages[type]) {
         workImages[type].forEach(src => {
