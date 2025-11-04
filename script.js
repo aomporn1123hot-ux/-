@@ -1,118 +1,143 @@
-// ===============================
-// ฟังก์ชันแสดงหน้าปัจจุบัน
-// ===============================
-let currentPage = 1;
+import { ref, set, push, saveToBothProjects } from "./firebase.js";
+
+let current = 0;
 const pages = document.querySelectorAll(".page");
 
-function showPage(num) {
-  pages.forEach((p, i) => {
-    p.style.display = i + 1 === num ? "block" : "none";
+// ✅ ฟังก์ชันแสดงหน้าปัจจุบัน
+function showPage(n) {
+  pages.forEach((page, i) => {
+    page.style.display = i === n ? "block" : "none";
   });
-
-  // ปรับแถบความคืบหน้า
-  const progress = ((num - 1) / (pages.length - 1)) * 100;
-  document.getElementById("progressFill").style.width = progress + "%";
-  document.getElementById("progressSeed").style.left = progress + "%";
+  updateProgress(n);
+  current = n;
 }
 
-// เริ่มต้นหน้าแรก
-showPage(currentPage);
+// ✅ อัปเดตแถบความคืบหน้า
+function updateProgress(n) {
+  const fill = document.getElementById("progressFill");
+  const seed = document.getElementById("progressSeed");
+  const progress = ((n + 1) / pages.length) * 100;
+  fill.style.width = `${progress}%`;
+  seed.style.left = `${progress}%`;
+}
 
-// ===============================
-// ปุ่ม "ถัดไป" และ "ย้อนกลับ"
-// ===============================
+// ✅ ปุ่ม “ถัดไป”
 document.querySelectorAll(".next").forEach(btn => {
   btn.addEventListener("click", () => {
-    if (currentPage < pages.length) {
-      currentPage++;
-      showPage(currentPage);
-    }
+    if (current < pages.length - 1) showPage(current + 1);
   });
 });
 
+// ✅ ปุ่ม “ย้อนกลับ”
 document.querySelectorAll(".prev").forEach(btn => {
   btn.addEventListener("click", () => {
-    if (currentPage > 1) {
-      currentPage--;
-      showPage(currentPage);
-    }
+    if (current > 0) showPage(current - 1);
   });
 });
 
-// ===============================
-// ตัวเลือก (option)
-// ===============================
-document.querySelectorAll(".option").forEach(opt => {
-  opt.addEventListener("click", () => {
-    const group = opt.dataset.group;
-    const value = opt.dataset.value;
+// ✅ เมื่อคลิกตัวเลือก ให้เลือกเฉพาะอันเดียวต่อกลุ่ม
+document.querySelectorAll(".option").forEach(option => {
+  option.addEventListener("click", () => {
+    const group = option.dataset.group;
+    document
+      .querySelectorAll(`.option[data-group='${group}']`)
+      .forEach(opt => opt.classList.remove("selected"));
+    option.classList.add("selected");
 
-    // ล้างการเลือกก่อนหน้า
-    document.querySelectorAll(`[data-group="${group}"]`).forEach(o => o.classList.remove("selected"));
-    opt.classList.add("selected");
-
-    // ถ้าเป็นโรคประจำตัว
+    // ✅ แสดงช่องกรอก "โรคประจำตัว" เมื่อเลือก "มี"
     if (group === "disease") {
-      const diseaseDetail = document.getElementById("disease-detail");
-      if (value === "มี") {
-        diseaseDetail.classList.remove("hidden");
+      const detail = document.getElementById("disease-detail");
+      if (option.dataset.value === "มี") {
+        detail.classList.remove("hidden");
       } else {
-        diseaseDetail.classList.add("hidden");
+        detail.classList.add("hidden");
       }
     }
 
-    // ✅ ถ้าเป็นลักษณะงาน (เพิ่มส่วนนี้เท่านั้น)
+    // ✅ แสดงภาพลักษณะงานเมื่อเลือกประเภทงาน
     if (group === "worktype") {
-      const gallery = document.getElementById("work-images");
-      let images = [];
+      const type = option.dataset.value;
+      const container = document.getElementById("work-images");
+      container.innerHTML = ""; // เคลียร์ภาพเก่า
 
-      if (value === "ทำนา") images = ["1.png", "2.png", "3.png"];
-      else if (value === "ทำไร่") images = ["4.png", "5.png", "6.png"];
-      else if (value === "ทำสวน") images = ["7.png", "8.png", "9.png"];
+      const workImages = {
+        "ทำนา": ["images/1.png"],
+        "ทำไร่": ["images/2.png", "images/3.png", "images/4.png"],
+        "ทำสวน": ["images/5.png", "images/6.png"]
+      };
 
-      gallery.innerHTML = images
-        .map(img => `<img src="${img}" alt="${value}" class="workimg">`)
-        .join("");
+      if (workImages[type]) {
+        workImages[type].forEach(src => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.classList.add("workimg");
+          container.appendChild(img);
+        });
+      }
 
-      // ✅ เพิ่มส่วนนี้: ให้กดเลือกภาพได้
+      // ✅ เมื่อคลิกภาพ ให้เลือกได้ภาพเดียว
       document.querySelectorAll(".workimg").forEach(img => {
         img.addEventListener("click", () => {
           document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
           img.classList.add("selected");
+
+          const submitBtn = document.querySelector(".submit");
+          if (submitBtn) submitBtn.disabled = false;
         });
       });
     }
 
-    // เปิดปุ่มถัดไปหรือส่ง
-    const parentPage = opt.closest(".page");
-    const nextBtn = parentPage.querySelector(".next, .submit");
+    // ✅ เปิดปุ่มถัดไป
+    const nextBtn = option.closest(".page").querySelector(".next");
     if (nextBtn) nextBtn.disabled = false;
+
+    // ✅ เปิดปุ่มส่ง (ถ้ามี)
+    const submitBtn = option.closest(".page").querySelector(".submit");
+    if (submitBtn) submitBtn.disabled = false;
   });
 });
 
-// ===============================
-// การกรอกตัวเลข (input)
-// ===============================
+// ✅ ตรวจสอบการกรอกตัวเลข: เปิดปุ่มถัดไปเมื่อมีข้อมูล
 ["age", "exp", "workhours"].forEach(id => {
   const input = document.getElementById(id);
-  if (!input) return;
-  input.addEventListener("input", () => {
-    const nextBtn = input.closest(".page").querySelector(".next");
-    if (nextBtn) nextBtn.disabled = input.value.trim() === "";
-  });
+  if (input) {
+    input.addEventListener("input", () => {
+      const nextBtn = input.closest(".page").querySelector(".next");
+      nextBtn.disabled = input.value.trim() === "";
+    });
+  }
 });
 
-// ===============================
-// เมื่อกด "ส่ง" (จบแบบสอบถาม)
-// ===============================
+// ✅ เมื่อกดปุ่มส่ง
 document.querySelector(".submit").addEventListener("click", () => {
-  currentPage++;
-  showPage(currentPage);
+  const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
+  const age = document.getElementById("age")?.value || "";
+  const diseaseOpt = document.querySelector(".option[data-group='disease'].selected");
+  const disease = diseaseOpt ? diseaseOpt.dataset.value : "";
+  const diseaseText = disease === "มี" ? document.getElementById("disease-text")?.value : "";
+  const exp = document.getElementById("exp")?.value || "";
+  const workhours = document.getElementById("workhours")?.value || "";
+  const worktype = document.querySelector(".option[data-group='worktype'].selected")?.dataset.value || "";
+  const workimg = document.querySelector(".workimg.selected")?.src || "";
+
+  const data = {
+    gender,
+    age,
+    disease,
+    diseaseText,
+    exp,
+    workhours,
+    worktype,
+    workimg,
+    timestamp: new Date().toISOString()
+  };
+
+  // ✅ ส่งข้อมูลไป Firebase ทั้งสองโปรเจกต์ (โดยไม่กระทบข้อมูลเดิม)
+  saveToBothProjects(data);
+
+  // ✅ ไปยังหน้าสุดท้าย
+  showPage(current + 1);
 });
 
-// ===============================
-// ปุ่มไปหน้าประเมิน FERA
-// ===============================
-document.getElementById("feraBtn")?.addEventListener("click", () => {
-  window.location.href = "https://aomporn1123hot-ux.github.io/FERA-for-Farmer/";
-});
+// ✅ เริ่มต้นที่หน้าแรก
+showPage(0);
