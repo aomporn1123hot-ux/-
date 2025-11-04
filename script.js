@@ -55,37 +55,38 @@ document.querySelectorAll(".option").forEach(option => {
     }
 
     // ✅ แสดงภาพลักษณะงานเมื่อเลือกประเภทงาน
-    if (group === "worktype") {
-      const type = option.dataset.value;
-      const container = document.getElementById("work-images");
-      container.innerHTML = ""; // เคลียร์ภาพเก่า
+if (group === "worktype") {
+  const type = option.dataset.value;
+  const container = document.getElementById("work-images");
+  container.innerHTML = ""; // เคลียร์ภาพเก่า
 
-      const workImages = {
-        "ทำนา": ["images/1.png"],
-        "ทำไร่": ["images/2.png", "images/3.png", "images/4.png"],
-        "ทำสวน": ["images/5.png", "images/6.png"]
-      };
+  const workImages = {
+    "ทำนา": ["./images/1.png"],
+    "ทำไร่": ["./images/2.png", "./images/3.png", "./images/4.png"],
+    "ทำสวน": ["./images/5.png", "./images/6.png"]
+  };
 
-      if (workImages[type]) {
-        workImages[type].forEach(src => {
-          const img = document.createElement("img");
-          img.src = src;
-          img.classList.add("workimg");
-          container.appendChild(img);
-        });
-      }
+  if (workImages[type]) {
+    workImages[type].forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.classList.add("workimg");
+      img.loading = "lazy"; // เพิ่มให้โหลดเร็วขึ้น
+      container.appendChild(img);
+    });
+  }
 
-      // ✅ เมื่อคลิกภาพ ให้เลือกได้ภาพเดียว
-      document.querySelectorAll(".workimg").forEach(img => {
-        img.addEventListener("click", () => {
-          document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
-          img.classList.add("selected");
+  // ✅ เมื่อคลิกภาพ ให้เลือกได้ภาพเดียว
+  document.querySelectorAll(".workimg").forEach(img => {
+    img.addEventListener("click", () => {
+      document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
+      img.classList.add("selected");
 
-          const submitBtn = document.querySelector(".submit");
-          if (submitBtn) submitBtn.disabled = false;
-        });
-      });
-    }
+      const submitBtn = document.querySelector(".submit");
+      if (submitBtn) submitBtn.disabled = false;
+    });
+  });
+}
 
     // ✅ เปิดปุ่มถัดไป
     const nextBtn = option.closest(".page").querySelector(".next");
