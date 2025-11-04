@@ -2,8 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>แบบสอบถามข้อมูลทั่วไป</title>
+  <title>แบบสอบถาม</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,7 +14,7 @@
       <div id="progressSeed">🌱</div>
     </div>
 
-    <!-- Step 1 -->
+    <!-- Step 1: เพศ -->
     <div class="page" id="page1">
       <h2>ข้อ 1: เพศ</h2>
       <div class="options">
@@ -27,7 +26,7 @@
       </div>
     </div>
 
-    <!-- Step 2 -->
+    <!-- Step 2: อายุ -->
     <div class="page" id="page2">
       <h2>ข้อ 2: อายุ (ปี)</h2>
       <input type="number" id="age" placeholder="กรอกอายุ">
@@ -37,7 +36,7 @@
       </div>
     </div>
 
-    <!-- Step 3 -->
+    <!-- Step 3: โรคประจำตัว -->
     <div class="page" id="page3">
       <h2>ข้อ 3: ท่านมีโรคประจำตัวหรือไม่</h2>
       <div class="options">
@@ -54,7 +53,7 @@
       </div>
     </div>
 
-    <!-- Step 4 -->
+    <!-- Step 4: ประสบการณ์ทำงาน -->
     <div class="page" id="page4">
       <h2>ข้อ 4: ประสบการณ์ทำงาน (ปี)</h2>
       <input type="number" id="exp" placeholder="กรอกจำนวนปี">
@@ -64,7 +63,7 @@
       </div>
     </div>
 
-    <!-- Step 5 -->
+    <!-- Step 5: ชั่วโมงทำงาน -->
     <div class="page" id="page5">
       <h2>ข้อ 5: ระยะเวลาการทำงานต่อวัน (ชั่วโมง)</h2>
       <input type="number" id="workhours" placeholder="กรอกจำนวนชั่วโมง">
@@ -74,7 +73,7 @@
       </div>
     </div>
 
-    <!-- Step 6 -->
+    <!-- Step 6: ลักษณะงาน -->
     <div class="page" id="page6">
       <h2>ข้อ 6: ลักษณะงานหลักที่ทำ</h2>
       <div class="options">
@@ -82,7 +81,7 @@
         <div class="option" data-group="worktype" data-value="ทำไร่">ทำไร่</div>
         <div class="option" data-group="worktype" data-value="ทำสวน">ทำสวน</div>
       </div>
-      <div id="work-images" class="image-gallery"></div>
+      <div id="work-images"></div>
       <div class="nav">
         <button class="prev">ย้อนกลับ</button>
         <button class="submit" disabled>ส่ง</button>
@@ -90,30 +89,29 @@
     </div>
 
     <!-- Final Page -->
-    <div class="page" id="pageFinal">
-      <video src="ปวดหลัง.mp4" autoplay loop muted playsinline style="width:100%; height:auto; pointer-events:none;"></video>
+<div class="page" id="pageFinal">
+  <video src="ปวดหลัง.mp4" autoplay loop muted playsinline style="width:100%; height:auto; pointer-events:none;"></video>
 
-      <div id="finalMessage" style="text-align:center; margin:20px 10px; font-size:1em; color:#2e7d32; line-height:1.6;">
-        ข้อมูลทั่วไปของคุณถูกบันทึกเรียบร้อยแล้ว 😊<br>
-        ต่อไปคุณสามารถเริ่มทำการประเมินความเสี่ยงทางการยศาสตร์จากท่าทางการทำงานของเกษตรกรได้ 
-        โดยกดปุ่มด้านล่างเพื่อเริ่มการประเมิน
-      </div>
+  <div id="finalMessage" style="text-align:center; margin:20px 10px; font-size:1em; color:#2e7d32; line-height:1.6;">
+    ข้อมูลทั่วไปของคุณถูกบันทึกเรียบร้อยแล้ว 😊<br>
+    ต่อไปคุณสามารถเริ่มทำการประเมินความเสี่ยงทางการยศาสตร์จากท่าทางการทำงานของเกษตรกรได้ โดยกดปุ่มด้านล่างเพื่อเริ่มการประเมิน
+  </div>
 
-      <div style="text-align:center; margin-bottom:50px;">
-        <button id="feraBtn" style="
-          font-size: 1.5em; 
-          padding: 18px 36px; 
-          border: none; 
-          border-radius: 12px; 
-          background-color: #66bb6a; 
-          color: white; 
-          cursor: pointer;
-          box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
-          transition: transform 0.2s;
-        ">🌿 เริ่มประเมิน FERA</button>
-      </div>
-    </div>
-
+  <div style="text-align:center; margin-bottom:50px;">
+    <button id="feraBtn" style="
+      font-size: 1.5em; 
+      padding: 18px 36px; 
+      border: none; 
+      border-radius: 12px; 
+      background-color: #66bb6a; 
+      color: white; 
+      cursor: pointer;
+      box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    ">🌿 เริ่มประเมิน FERA</button>
+  </div>
+</div>
+    
   </div>
 
   <!-- Firebase SDK -->
