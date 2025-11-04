@@ -61,18 +61,26 @@ document.querySelectorAll(".option").forEach(opt => {
       }
     }
 
-    // ถ้าเป็นลักษณะงาน
+    // ✅ ถ้าเป็นลักษณะงาน (เพิ่มส่วนนี้เท่านั้น)
     if (group === "worktype") {
       const gallery = document.getElementById("work-images");
       let images = [];
 
-      if (value === "ทำนา") images = ["1.png"];
-      else if (value === "ทำไร่") images = ["2.png", "3.png", "4.png"];
-      else if (value === "ทำสวน") images = ["5.png", "6.png"];
+      if (value === "ทำนา") images = ["1.png", "2.png", "3.png"];
+      else if (value === "ทำไร่") images = ["4.png", "5.png", "6.png"];
+      else if (value === "ทำสวน") images = ["7.png", "8.png", "9.png"];
 
       gallery.innerHTML = images
-        .map(img => `<img src="${img}" alt="${value}" class="work-img">`)
+        .map(img => `<img src="${img}" alt="${value}" class="workimg">`)
         .join("");
+
+      // ✅ เพิ่มส่วนนี้: ให้กดเลือกภาพได้
+      document.querySelectorAll(".workimg").forEach(img => {
+        img.addEventListener("click", () => {
+          document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
+          img.classList.add("selected");
+        });
+      });
     }
 
     // เปิดปุ่มถัดไปหรือส่ง
