@@ -1,9 +1,10 @@
+// ===== Firebase =====
 import { ref, set, push, saveToBothProjects } from "./firebase.js";
 
 let current = 0;
 const pages = document.querySelectorAll(".page");
 
-// ✅ ฟังก์ชันแสดงหน้าปัจจุบัน
+// ✅ แสดงหน้าปัจจุบัน
 function showPage(n) {
   pages.forEach((page, i) => {
     page.style.display = i === n ? "block" : "none";
@@ -55,38 +56,42 @@ document.querySelectorAll(".option").forEach(option => {
     }
 
     // ✅ แสดงภาพลักษณะงานเมื่อเลือกประเภทงาน
-if (group === "worktype") {
-  const type = option.dataset.value;
-  const container = document.getElementById("work-images");
-  container.innerHTML = ""; // เคลียร์ภาพเก่า
+    if (group === "worktype") {
+      const type = option.dataset.value;
+      const container = document.getElementById("work-images");
+      container.innerHTML = ""; // เคลียร์ภาพเก่า
 
-  const workImages = {
-    "ทำนา": ["./images/1.png"],
-    "ทำไร่": ["./images/2.png", "./images/3.png", "./images/4.png"],
-    "ทำสวน": ["./images/5.png", "./images/6.png"]
-  };
+      // ✅ ใช้ path แบบแน่นอน ./images/
+      const workImages = {
+        "ทำนา": ["./images/1.png"],
+        "ทำไร่": ["./images/2.png", "./images/3.png", "./images/4.png"],
+        "ทำสวน": ["./images/5.png", "./images/6.png"]
+      };
 
-  if (workImages[type]) {
-    workImages[type].forEach(src => {
-      const img = document.createElement("img");
-      img.src = src;
-      img.classList.add("workimg");
-      img.loading = "lazy"; // เพิ่มให้โหลดเร็วขึ้น
-      container.appendChild(img);
-    });
-  }
+      if (workImages[type]) {
+        workImages[type].forEach(src => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.classList.add("workimg");
+          img.loading = "lazy";
+          container.appendChild(img);
+        });
+      }
 
-  // ✅ เมื่อคลิกภาพ ให้เลือกได้ภาพเดียว
-  document.querySelectorAll(".workimg").forEach(img => {
-    img.addEventListener("click", () => {
-      document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
-      img.classList.add("selected");
+      // ✅ เมื่อคลิกภาพ ให้เลือกได้ภาพเดียว
+      document.querySelectorAll(".workimg").forEach(img => {
+        img.addEventListener("click", () => {
+          document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
+          img.classList.add("selected");
 
-      const submitBtn = document.querySelector(".submit");
-      if (submitBtn) submitBtn.disabled = false;
-    });
-  });
-}
+          // ✅ เอฟเฟกต์เรืองแสง (เสริมด้วย style.css)
+          img.style.boxShadow = "0 0 20px 5px rgba(0, 230, 118, 0.6)";
+
+          const submitBtn = document.querySelector(".submit");
+          if (submitBtn) submitBtn.disabled = false;
+        });
+      });
+    }
 
     // ✅ เปิดปุ่มถัดไป
     const nextBtn = option.closest(".page").querySelector(".next");
@@ -133,7 +138,7 @@ document.querySelector(".submit").addEventListener("click", () => {
     timestamp: new Date().toISOString()
   };
 
-  // ✅ ส่งข้อมูลไป Firebase ทั้งสองโปรเจกต์ (โดยไม่กระทบข้อมูลเดิม)
+  // ✅ ส่งข้อมูลไป Firebase ทั้งสองโปรเจกต์ (ไม่กระทบข้อมูลเดิม)
   saveToBothProjects(data);
 
   // ✅ ไปยังหน้าสุดท้าย
@@ -142,3 +147,8 @@ document.querySelector(".submit").addEventListener("click", () => {
 
 // ✅ เริ่มต้นที่หน้าแรก
 showPage(0);
+
+// ✅ ปุ่มเริ่มประเมิน FERA — ไปยังลิงก์ที่กำหนด
+document.getElementById("feraBtn").addEventListener("click", () => {
+  window.location.href = "https://aomporn1123hot-ux.github.io/FERA-for-Farmer/";
+});
