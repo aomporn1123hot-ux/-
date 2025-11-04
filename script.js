@@ -3,7 +3,7 @@ import { ref, set, push, saveToBothProjects } from "./firebase.js";
 let current = 0;
 const pages = document.querySelectorAll(".page");
 
-// แสดงหน้าปัจจุบัน
+// ✅ ฟังก์ชันแสดงหน้าปัจจุบัน
 function showPage(n) {
   pages.forEach((page, i) => {
     page.style.display = i === n ? "block" : "none";
@@ -12,7 +12,7 @@ function showPage(n) {
   current = n;
 }
 
-// อัปเดตแถบความคืบหน้า
+// ✅ อัปเดตแถบความคืบหน้า
 function updateProgress(n) {
   const fill = document.getElementById("progressFill");
   const seed = document.getElementById("progressSeed");
@@ -21,14 +21,14 @@ function updateProgress(n) {
   seed.style.left = `${progress}%`;
 }
 
-// ปุ่ม “ถัดไป” ทุกหน้า
+// ✅ ปุ่ม “ถัดไป”
 document.querySelectorAll(".next").forEach(btn => {
   btn.addEventListener("click", () => {
     if (current < pages.length - 1) showPage(current + 1);
   });
 });
 
-// ปุ่ม “ย้อนกลับ”
+// ✅ ปุ่ม “ย้อนกลับ”
 document.querySelectorAll(".prev").forEach(btn => {
   btn.addEventListener("click", () => {
     if (current > 0) showPage(current - 1);
@@ -44,7 +44,7 @@ document.querySelectorAll(".option").forEach(option => {
       .forEach(opt => opt.classList.remove("selected"));
     option.classList.add("selected");
 
-    // กรณีโรคประจำตัว — แสดงช่องกรอกเพิ่มเติม
+    // ✅ แสดงช่องกรอก "โรคประจำตัว" เมื่อเลือก "มี"
     if (group === "disease") {
       const detail = document.getElementById("disease-detail");
       if (option.dataset.value === "มี") {
@@ -54,17 +54,50 @@ document.querySelectorAll(".option").forEach(option => {
       }
     }
 
-    // เปิดปุ่มถัดไป
+    // ✅ แสดงภาพลักษณะงานเมื่อเลือกประเภทงาน
+    if (group === "worktype") {
+      const type = option.dataset.value;
+      const container = document.getElementById("work-images");
+      container.innerHTML = ""; // เคลียร์ภาพเก่า
+
+      const workImages = {
+        "ทำนา": ["images/1.png"],
+        "ทำไร่": ["images/2.png", "images/3.png", "images/4.png"],
+        "ทำสวน": ["images/5.png", "images/6.png"]
+      };
+
+      if (workImages[type]) {
+        workImages[type].forEach(src => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.classList.add("workimg");
+          container.appendChild(img);
+        });
+      }
+
+      // ✅ เมื่อคลิกภาพ ให้เลือกได้ภาพเดียว
+      document.querySelectorAll(".workimg").forEach(img => {
+        img.addEventListener("click", () => {
+          document.querySelectorAll(".workimg").forEach(i => i.classList.remove("selected"));
+          img.classList.add("selected");
+
+          const submitBtn = document.querySelector(".submit");
+          if (submitBtn) submitBtn.disabled = false;
+        });
+      });
+    }
+
+    // ✅ เปิดปุ่มถัดไป
     const nextBtn = option.closest(".page").querySelector(".next");
     if (nextBtn) nextBtn.disabled = false;
 
-    // เปิดปุ่มส่งกรณีเป็นหน้าสุดท้าย
+    // ✅ เปิดปุ่มส่ง (ถ้ามี)
     const submitBtn = option.closest(".page").querySelector(".submit");
     if (submitBtn) submitBtn.disabled = false;
   });
 });
 
-// ✅ ตรวจอินพุตตัวเลข: เปิดปุ่มถัดไปเมื่อกรอกครบ
+// ✅ ตรวจสอบการกรอกตัวเลข: เปิดปุ่มถัดไปเมื่อมีข้อมูล
 ["age", "exp", "workhours"].forEach(id => {
   const input = document.getElementById(id);
   if (input) {
@@ -75,7 +108,7 @@ document.querySelectorAll(".option").forEach(option => {
   }
 });
 
-// ✅ บันทึกข้อมูลเมื่อกดส่ง
+// ✅ เมื่อกดปุ่มส่ง
 document.querySelector(".submit").addEventListener("click", () => {
   const gender = document.querySelector(".option[data-group='gender'].selected")?.dataset.value || "";
   const age = document.getElementById("age")?.value || "";
@@ -102,9 +135,9 @@ document.querySelector(".submit").addEventListener("click", () => {
   // ✅ ส่งข้อมูลไป Firebase ทั้งสองโปรเจกต์ (โดยไม่กระทบข้อมูลเดิม)
   saveToBothProjects(data);
 
-  // ไปยังหน้าสุดท้าย
+  // ✅ ไปยังหน้าสุดท้าย
   showPage(current + 1);
 });
 
-// ✅ หน้าแรกเริ่มต้น
+// ✅ เริ่มต้นที่หน้าแรก
 showPage(0);
