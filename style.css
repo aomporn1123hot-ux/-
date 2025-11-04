@@ -3,7 +3,7 @@ body {
   background: url("8.jpg") no-repeat center center fixed;
   background-size: cover;
   padding: 20px;
-  font-size: 1.1em; /* ✅ ลดจาก 2.5em ให้พอดีมือถือ */
+  font-size: 2.5em;
   margin: 0;
   min-height: 100vh;
 }
@@ -19,7 +19,7 @@ body {
 #progressBar {
   position: relative;
   width: 98%;
-  height: 25px;
+  height: 30px;
   background: #fff;
   border: 2px solid #2e7d32;
   border-radius: 15px;
@@ -39,31 +39,24 @@ body {
   top: 50%;
   left: 0%;
   transform: translate(-50%, -50%);
-  font-size: 1em;
+  font-size: 1.2em;
   transition: left 0.6s ease;
-}
-
-h2 {
-  font-size: 1.4em; /* ✅ หัวข้อใหญ่กำลังดี */
-  color: #2e7d32;
 }
 
 .option {
   border: 2px solid #a5d6a7;
-  padding: 12px 30px;
+  padding: 15px 40px;
   border-radius: 10px;
-  margin: 8px;
+  margin: 10px;
   cursor: pointer;
   display: inline-block;
   position: relative;
   font-size: 1em;
   background: #ffffff;
-  transition: all 0.3s ease;
 }
 
 .option.selected {
   border: 3px solid #00e676;
-  box-shadow: 0 0 15px 3px rgba(0, 230, 118, 0.4); /* ✅ แสงเรืองสีเขียว */
   background: #ffffff;
 }
 
@@ -75,57 +68,62 @@ h2 {
   background: #00e676;
   color: white;
   border-radius: 50%;
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.7em;
+  font-size: 0.6em;
 }
 
 input[type="number"],
 input[type="text"] {
   font-size: 1em;
-  padding: 12px;
+  padding: 20px;
   width: 80%;
   border: 0.5mm solid lightgreen;
   border-radius: 6px;
-  margin: 10px 0 25px 0;
+  margin: 10px 0 30px 0;
 }
 
 .hidden {
   display: none;
 }
 
+/* ✅ ปรับขนาดและลักษณะรูปภาพให้พอดีบนมือถือ */
 #work-images {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 10px;
 }
 
+/* ✅ รูปภาพทำนา ทำไร่ ทำสวน */
 .workimg {
-  width: 220px;
+  width: 30%; /* 3 ภาพต่อบรรทัด */
+  max-width: 200px;
   height: auto;
+  border: 2px solid #a5d6a7; /* กรอบสีเขียวอ่อน */
+  border-radius: 10px; /* มุมมน */
   margin: 10px;
   cursor: pointer;
-  border: 2px solid #a5d6a7;
-  border-radius: 10px;
   background: #fff;
-  transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
-  animation: popIn 0.5s ease;
+  transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
 }
 
+/* ✅ เอฟเฟกต์เมื่อเอาเมาส์ชี้ */
 .workimg:hover {
   transform: scale(1.05);
 }
 
+/* ✅ เอฟเฟกต์เมื่อเลือก */
 .workimg.selected {
   border: 3px solid #00e676;
-  box-shadow: 0 0 25px 5px rgba(0, 230, 118, 0.6); /* ✅ แสงเรืองออกจากกรอบ */
-  animation: bounce 0.6s;
+  box-shadow: 0 0 25px 8px rgba(0, 230, 118, 0.5); /* แสงเขียวออกมา */
 }
 
+/* เดิมของคุณ */
 @keyframes popIn {
   0% { transform: scale(0.5); opacity: 0; }
   60% { transform: scale(1.1); opacity: 1; }
@@ -134,27 +132,21 @@ input[type="text"] {
 
 @keyframes bounce {
   0%, 100% { transform: scale(1); }
-  40% { transform: scale(1.12); }
-  70% { transform: scale(0.97); }
+  40% { transform: scale(1.15); }
+  70% { transform: scale(0.95); }
 }
 
 .nav {
-  margin-top: 25px;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
 }
 
 button {
-  padding: 15px 35px;
+  padding: 25px 50px;
   border: none;
   cursor: pointer;
   font-size: 1em;
-  border-radius: 8px;
-  transition: background 0.3s, transform 0.2s;
-}
-
-button:hover {
-  transform: scale(1.05);
 }
 
 .next {
