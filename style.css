@@ -1,11 +1,11 @@
 body {
-  font-family: "Prompt", sans-serif;
+  font-family: sans-serif;
   background: url("8.jpg") no-repeat center center fixed;
   background-size: cover;
+  padding: 20px;
+  font-size: 1.1em; /* ✅ ลดจาก 2.5em ให้พอดีมือถือ */
   margin: 0;
-  padding: 15px;
-  font-size: 16px;
-  color: #333;
+  min-height: 100vh;
 }
 
 .page {
@@ -16,16 +16,15 @@ body {
   display: block;
 }
 
-/* Progress bar */
 #progressBar {
   position: relative;
-  width: 95%;
-  height: 20px;
+  width: 98%;
+  height: 25px;
   background: #fff;
-  border: 1.5px solid #2e7d32;
-  border-radius: 10px;
+  border: 2px solid #2e7d32;
+  border-radius: 15px;
   overflow: hidden;
-  margin: 15px auto;
+  margin: 20px auto;
 }
 
 #progressFill {
@@ -44,102 +43,118 @@ body {
   transition: left 0.6s ease;
 }
 
-/* ตัวเลือกข้อความ */
+h2 {
+  font-size: 1.4em; /* ✅ หัวข้อใหญ่กำลังดี */
+  color: #2e7d32;
+}
+
 .option {
-  border: 1px solid #a5d6a7;
-  padding: 10px 25px;
-  border-radius: 8px;
+  border: 2px solid #a5d6a7;
+  padding: 12px 30px;
+  border-radius: 10px;
   margin: 8px;
   cursor: pointer;
   display: inline-block;
-  background: #fff;
+  position: relative;
   font-size: 1em;
-  transition: border 0.3s, transform 0.3s;
-}
-
-.option:hover {
-  transform: scale(1.03);
+  background: #ffffff;
+  transition: all 0.3s ease;
 }
 
 .option.selected {
-  border: 2px solid #00e676;
+  border: 3px solid #00e676;
+  box-shadow: 0 0 15px 3px rgba(0, 230, 118, 0.4); /* ✅ แสงเรืองสีเขียว */
   background: #ffffff;
-  position: relative;
 }
 
 .option.selected::after {
   content: "✔";
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -10px;
+  right: -10px;
   background: #00e676;
   color: white;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 
-/* ช่องกรอกข้อมูล */
 input[type="number"],
-input[type="text"],
-select {
+input[type="text"] {
   font-size: 1em;
-  padding: 10px;
+  padding: 12px;
   width: 80%;
-  border: 1px solid #a5d6a7;
-  border-radius: 5px;
-  margin: 10px 0 20px 0;
+  border: 0.5mm solid lightgreen;
+  border-radius: 6px;
+  margin: 10px 0 25px 0;
 }
 
-/* รูปภาพตัวเลือก */
+.hidden {
+  display: none;
+}
+
 #work-images {
   margin-top: 15px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
 }
 
 .workimg {
-  width: 110px;
+  width: 220px;
   height: auto;
-  margin: 8px;
+  margin: 10px;
   cursor: pointer;
-  border: 1px solid #a5d6a7;
-  border-radius: 8px;
+  border: 2px solid #a5d6a7;
+  border-radius: 10px;
   background: #fff;
   transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+  animation: popIn 0.5s ease;
 }
 
 .workimg:hover {
   transform: scale(1.05);
 }
 
-/* ✅ เอฟเฟกต์กรอบเรืองแสงสีเขียวเมื่อเลือกรูป */
 .workimg.selected {
-  border: 2px solid #00e676;
-  box-shadow: 0 0 15px 4px rgba(0, 230, 118, 0.7);
-  transform: scale(1.05);
+  border: 3px solid #00e676;
+  box-shadow: 0 0 25px 5px rgba(0, 230, 118, 0.6); /* ✅ แสงเรืองออกจากกรอบ */
+  animation: bounce 0.6s;
 }
 
-/* ปุ่ม */
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  70% { transform: scale(0.97); }
+}
+
 .nav {
-  margin-top: 20px;
+  margin-top: 25px;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 button {
-  padding: 10px 25px;
+  padding: 15px 35px;
   border: none;
   cursor: pointer;
   font-size: 1em;
-  border-radius: 5px;
-  transition: background 0.3s;
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 .next {
@@ -155,32 +170,4 @@ button {
 .submit {
   background: #FF5722;
   color: white;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-/* ข้อความท้าย */
-#result {
-  text-align: center;
-  margin-top: 30px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 20px;
-  border-radius: 10px;
-}
-
-#result a {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #4CAF50;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s;
-}
-
-#result a:hover {
-  background: #43A047;
 }
